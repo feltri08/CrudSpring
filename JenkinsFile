@@ -12,15 +12,17 @@ pipeline {
                 // Run Maven on a Unix agent.
                 // sh "mvn clean"
                 // To run Maven on a Windows agent, use
+                echo "voy a limpiar"
                 bat "mvn clean"
             }
         }
-        stage('Empaquetar'){
+        stage('compilar'){
             steps {
                 // Run Maven on a Unix agent.
                 // sh "mvn -Dmaven.test.failure.ignore=true package"
                 // To run Maven on a Windows agent, use
-                bat "mvn -Dmaven.test.failure.ignore=true package"
+                echo "voy a compilar"
+                bat "mvn compile"
             }
         }
     }
