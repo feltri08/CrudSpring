@@ -1,37 +1,29 @@
 pipeline {
-  
-  agent any
-  
-  tools {
-    maven 'maven 3.8.3'
-    jdk 'JDK11'
-  }
-  
-  stages {
-    
-    stage("build") {
-      steps {
-        echo 'This is the building phase'
-         sh 'mvn -Dmaven.test.failure.ignore=true install' 
-      }
-      post {
-        success {
-          junit 'target/surefire-reports/**/*.xml' 
-        }          
-      }
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "maven 3.8.3"
     }
-    
-    stage("test") {
-      steps {
-        echo 'This is the test phase'
-        echo 'The test phase has been done rigth!'
-      }
+
+    stages {
+        stage('Limpiar'){
+            steps {
+                // Run Maven on a Unix agent.
+                // sh "mvn clean"
+                // To run Maven on a Windows agent, use
+                echo "voy a limpiar"
+                bat "mvn clean"
+            }
+        }
+        stage('compilar'){
+            steps {
+                // Run Maven on a Unix agent.
+                // sh "mvn -Dmaven.test.failure.ignore=true package"
+                // To run Maven on a Windows agent, use
+                echo "voy a compilar"
+                bat "mvn compile"
+            }
+        }
     }
-    
-    stage("deploy") {
-      steps {
-        echo 'This is the deploy phase'
-      }
-    }
-  }
 }
